@@ -1,17 +1,26 @@
 class PetsController < ApplicationController
 
   def index
-    # TODO: set up data for index view
+     @pets = Pet.all
   end
 
   def show
-    # TODO: set up data for show view
+     @pet = Pet.find_by_id(params[:id])
   end
 
-  # TODO: set up *new* method with data for new view
+  def new
+    @pet = Pet.new
+  end
 
-  # TODO: set up *create* method with database interactions for create
-  # TODO: handle save errors and communicate issues to user
+  def create
+    pet = Pet.create(pet_params)
+   if  pet.save
+      redirect_to @pet
+   else
+     flash[:error] = pet.error.full_message.join(" ")
+     render :new
+   end
+  end
 
   private
   def pet_params

@@ -1,7 +1,8 @@
 class Pet < ActiveRecord::Base
-  # TODO: associate with owner
+    belongs_to :owner, optional: true
 
-  # TODO: validate name and breed
+    validate :name,precense: true
+    validate :breed, precense: true
 
   validate :date_of_birth_cannot_be_in_the_future
 
